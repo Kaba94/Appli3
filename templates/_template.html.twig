@@ -11,7 +11,7 @@
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ path('home') }}">
                 <p class="subtitle is-4 has-text-primary">
-                   NOM DU SITE
+                    EVENTS
                 </p>
             </a>
 
@@ -25,25 +25,32 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" href="#">
-                    Evénement
+                    Evenements
                 </a>
-
-                <a class="navbar-item" href="#">
-                    Nouveautés
+                <a class="navbar-item title" href="{{ path('app_create-event') }}">
+                    +
                 </a>
             </div>
 
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                            <a class="button is-primary is-small" href="#">
+                        {% if app.user %}
+                            <a class="button is-primary is-small" href="{{ path('app_profile') }}">
+                                <span class="icon"><i class="fas fa-user-circle"></i></span>
+                                <strong>{{ app.user.email }}</strong>
+                            </a>
+                            <a class="button is-light is-small" href="{{ path('app_logout') }}">
+                                Deconnexion
+                            </a>
+                        {% else %}
+                            <a class="button is-primary is-small" href="{{ path('app_register') }}">
                                 <strong>Inscription</strong>
                             </a>
-                            <a class="button is-light is-small" href="#">
+                            <a class="button is-light is-small" href="{{ path('app_login') }}">
                                 Connexion
                             </a>
-
-                                              
+                        {% endif %}                      
                     </div>
                 </div>
 

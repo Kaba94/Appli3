@@ -1,0 +1,21 @@
+{% extends '_template.html.twig' %}
+
+{% block title %}nouveaux evenements{% endblock %}
+
+{% block content %}
+    <div class="section">
+        <h1 class="title">Céer de nouveaux evenements</h1>
+
+        {{ form_start(eventForm) }}
+
+        {{ form_row(eventForm.nom, {label: "Nom:"}) }}
+        {{ form_row(eventForm.description, {label: "Description:"}) }}
+        {{ form_row(eventForm.lieu, {label: "Adresse:"}) }}
+        {{ form_row(eventForm.date, {label: "Date:"}) }}
+
+        <button type="submit" class="button is-primary is-fullwidth">
+            Créer
+        </button>
+        {{ form_end(eventForm) }}
+    </div>
+{% endblock %}
