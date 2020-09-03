@@ -24,12 +24,27 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
+            {% if is_granted("ROLE_USER") %}
                 <a class="navbar-item" href="#">
-                    Evenements
+                    Mes Participations
+                </a>
+                <a class="navbar-item" href=" {{ path('my_event') }} ">
+                    Mes Evenements
                 </a>
                 <a class="navbar-item title" href="{{ path('app_create-event') }}">
                     +
                 </a>
+            {% else %}
+                <a class="navbar-item" href="#">
+                    Mes Participations
+                </a>
+                <a class="navbar-item" href="#">
+                    Mes Evenements
+                </a>
+                <a class="navbar-item title" href="{{ path('app_login') }}">
+                    +
+                </a>
+            {% endif %}
             </div>
 
             <div class="navbar-end">

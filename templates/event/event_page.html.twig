@@ -1,0 +1,58 @@
+{% extends '_template.html.twig' %}
+
+{% block content %}
+
+    <section class="section">
+        <div class="title box">
+
+            <div class="">
+                <h1 class="title has-text-primary">
+                    {{ event.nom }}
+                </h1>
+                <h2 class="subtitle">
+                    Auteur:
+                    <a href="#">
+                        {{ event.auteur.email }}
+                    </a>
+                </h2>
+                <h2 class="subtitle">
+                    Date : {{ event.date|date('d/m/Y') }}
+                </h2>
+                <h3 class="subtitle">
+                    Adresse:
+                    <a href="#">
+                        {{ event.lieu }}
+                    </a>
+                </h3>
+                <p class="content">
+                    {{ event.description }}
+                </p>
+                <hr>
+                <h6 class="is-size-7">
+                    <span class="icon has-text-info"><i class="fas fa-info-circle"></i></span>
+                    <div class="section columns">
+                        {% if is_granted("EVENT_EDIT", event) %}
+                            <div class="column">
+                                <div class=" mb-1"><a href="{{ path('event_edit', {id: event.id}) }}" class="button button-small is-primary">modifier</a></div>
+                                <div class=""><a href="{{ path('event_remove', {id: event.id, token: csrf_token('event_remove')}) }}" class="button button-small is-danger">suprimer</a></div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </h6>
+            </div>
+        </div>
+    </section>
+    <div class="section columns margin-0">
+        <div class="column"></div>
+        <div class="column"><a href="#" class="button  is-primary  is-fullwidth">   participer   </a></div>
+        <div class="column"></div>
+    </div>
+    <section class="section">
+        <div class="title box">
+            <div>
+                <h1 class="title has-text-primary">Participants</h1>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

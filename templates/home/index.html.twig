@@ -8,7 +8,31 @@
 
 {% block content %}
     <div class="section">
-        <h1 class="title">Acceuil</h1>
+        <h1 class="title">Acceuil</h1> <hr>
+        <h2 class="subtitle">Dèrniers événements:</h2>
 
+        {% for event in event_list %}
+
+            <div class="box">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <a href=" {{ path('event_page', {id: event.id}) }} " class="has-text-primary">
+                                <strong>{{ event.nom }}</strong>
+                            </a>
+                            <small>{{ event.date|date('d/m/Y') }}</small>
+                                <hr>
+                            <small>
+                                <strong>Auteur:</strong>
+                                <a href="#"> {{ event.auteur.email }} </a>
+                            </small><br>
+                            {{ event.description|slice(0,50) }} <br>
+                            {{ event.lieu }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
     </div>    
 {% endblock %}

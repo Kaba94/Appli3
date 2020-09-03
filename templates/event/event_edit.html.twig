@@ -1,0 +1,23 @@
+{% extends '_template.html.twig' %}
+
+{% block title %}
+    Modifier mon event
+{% endblock %}
+
+{% block content %}
+    <div class="section">
+        <h1 class="title">Mlodifier mon événement</h1>
+
+        {{ form_start(editForm) }}
+
+        {{ form_row(editForm.nom, {label: "Nom:"}) }}
+        {{ form_row(editForm.description, {label: "Description:"}) }}
+        {{ form_row(editForm.lieu, {label: "Adresse:"}) }}
+        {{ form_row(editForm.date, {label: "Date:"}) }}
+
+        <button type="submit" class="button is-primary is-fullwidth">
+            Modifier
+        </button>
+        {{ form_end(editForm) }}
+    </div>
+{% endblock %}

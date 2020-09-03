@@ -21,7 +21,7 @@ class UserFixtures extends BaseFixture
     protected function loadData()
     {
         // Utilisateurs
-        $this->createMany(20, 'user_user', function (int $num) {
+        $this->createMany(35, 'user_user', function (int $num) {
             $user = new User();
             $password = $this->encoder->encodePassword($user, 'user' . $num);
 

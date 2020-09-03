@@ -1,0 +1,48 @@
+{% extends "_template.html.twig" %}
+
+{% block title %}
+   Mes Events
+{% endblock %}
+
+{% block content %}
+    <div class="section">
+        <h1 class="title">{{ app.user.email }}</h1>
+        <h3 class="subtitle">Mes événements : {{ app.user.events|length }}</h3>
+        <hr>
+                        
+        {% if events == null %}
+
+            <p class="has-text-centered is-size-7	0.75rem">
+                {{ '(Aucune événement organisé)' }}
+            </p>
+
+        {% else %}
+
+            {% for event in events %}
+
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <a href="{{ path('event_page', {id: event.id}) }}" class="has-text-primary">
+                                        <strong>{{ event.nom }}</strong>
+                                    </a>
+                                    <small>{{ event.date|date('d/m/Y') }}</small>
+                                    <br>
+                                    <small>
+                                        {{ event.lieu }}
+                                    </small><br>
+                                    {{ event.description|slice(0,50) }}
+                                </p>
+                            </div>
+                        </div>
+                         <div class="media-right"><a href="{{ path('event_edit', {id: event.id}) }}" class="button button-small is-primary">modifier</a></div>
+                         <div class="media-right"><a href="{{ path('event_remove', {id: event.id, token: csrf_token('event_remove')}) }}" class="button button-small is-danger">suprimer</a></div>
+                    </article>
+                </div>
+
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
