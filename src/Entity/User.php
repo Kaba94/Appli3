@@ -41,9 +41,15 @@ class User implements UserInterface
      */
     private $events;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="users")
+     */
+    private $participation;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->participation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +156,32 @@ class User implements UserInterface
             if ($event->getAuteur() === $this) {
                 $event->setAuteur(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getParticipation(): Collection
+    {
+        return $this->participation;
+    }
+
+    public function addParticipation(Event $participation): self
+    {
+        if (!$this->participation->contains($participation)) {
+            $this->participation[] = $participation;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(Event $participation): self
+    {
+        if ($this->participation->contains($participation)) {
+            $this->participation->removeElement($participation);
         }
 
         return $this;

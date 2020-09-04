@@ -43,14 +43,34 @@
         </div>
     </section>
     <div class="section columns margin-0">
-        <div class="column"></div>
-        <div class="column"><a href="#" class="button  is-primary  is-fullwidth">   participer   </a></div>
-        <div class="column"></div>
+       
+        {% if is_granted("ADD_EVENT", event) %}
+            <div class="column"></div>
+             <div class="column"><a href="{{ path('notadd_event', {id: event.id, token: csrf_token('notadd_event')}) }}" class="button  is-danger  is-fullwidth">   Annuler   </a></div>
+            <div class="column"></div>
+        {% else %}
+                <div class="column"></div>
+                <div class="column"><a href="{{ path('add_event', {id: event.id, token: csrf_token('add_event')}) }}" class="button  is-primary  is-fullwidth">   participer   </a></div>
+                <div class="column"></div>
+        {% endif %}
+
     </div>
     <section class="section">
         <div class="title box">
             <div>
-                <h1 class="title has-text-primary">Participants</h1>
+                <h1 class="title has-text-primary">Participants : {{ event.users|length }} </h1>
+
+                    <div class="columns is-multiline">
+                        {% for user in event.users %}
+                            <div class=" m0-3">
+                                <figure class="image is-96x96">
+                                <img src="https://robohash.org/{{ user.email }}?set=set5" alt="personnage">
+                                </figure>
+                                <p class="is-size-7 has-text-centered">{{ user.email }}</p>
+                            </div>
+                         {% endfor %}
+                    </div>
+                
             </div>
         </div>
     </section>

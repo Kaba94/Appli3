@@ -1,0 +1,42 @@
+{% extends "_template.html.twig" %}
+
+{% block title %}
+   Mes Participations
+{% endblock %}
+
+{% block content %}
+    <div class="section">
+        <h1 class="title">{{ app.user.email }}</h1>
+        <h3 class="subtitle">Mes Participation : {{ app.user.participation|length }}</h3>
+        <hr>
+                        
+
+            {% for participation in app.user.participation %}
+
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <a href="{{ path('event_page', {id: participation.id}) }}" class="has-text-primary">
+                                        <strong>{{ participation.nom }}</strong>
+                                    </a>
+                                    <small>{{ participation.date|date('d/m/Y') }}</small>
+                                    <br>
+                                    <small>
+                                        {{ participation.lieu }}
+                                    </small><br>
+                                    {{ participation.description|slice(0,50) }}
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+
+                    <p class="has-text-centered is-size-7	0.75rem">
+                        {{ '(Aucune participation prévu)' }}
+                    </p>
+
+            {% endfor %}
+    </div>
+{% endblock %}

@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Form\EditFormType;
 use App\Form\EventFormType;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -115,6 +117,47 @@ class EventController extends AbstractController
         }
         // redirection
         return $this->redirectToRoute('my_event');
+    }
+
+    /**
+     * Participation aux evenements
+     * @Route("/add_event/{id}", name="add_event")
+     */
+    public function addEvent(Event $event, EntityManagerInterface $manager, Request $request)
+    {
+        $token = $request->query->get('token');
+        if ($this->isCsrfTokenValid('add_event', $token))
+        {
+            $this->getUser()->addParticipation($event);
+            $manager->flush();
+        }
+        return $this->redirectToRoute('event_page', ['id' => $event->getId()]);
+    }
+
+    /**
+     * Annuler une participation a un événement
+     * @Route("notadd_event/{id}", name="notadd_event")
+     */
+    public function notAddEvent(Event $event, EntityManagerInterface $manager, Request $request)
+    {
+        $token = $request->query->get('token');
+        if ($this->isCsrfTokenValid('notadd_event', $token))
+        {
+            $this->getUser()->removeParticipation($event);
+            $manager->flush();
+        }
+        return $this->redirectToRoute('event_page', ['id' => $event->getId()]);
+    }
+
+    /**
+     * Liste des participations d'un utilisateur
+     * @Route("/list_participation", name="list_participation")
+     */
+    public function listeParticipation()
+    {
+        
+        return $this->render('event/my_participation.html.twig');
+        
     }
 
 }
